@@ -1,25 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import styled from "styled-components";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+import FormularioTarea from "./componentes/FormularioTarea/FormularioTarea";
+import Tareas from "./componentes/Tareas/Tareas";
+
+const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: #293b5f;
+  width: 100%;
+  height: 100vh;
+  padding-top: 20%;
+`;
+
+export default function App() {
+  const [todos, setTodos] = useState([]);
+  const [tareaEditar, setTareaEditar] = useState(null);
+
+  const agregarTarea = (tareaNueva) => {
+    setTodos([...todos, tareaNueva]);
+  };
+
+  const eliminarTarea = (idTarea) => {
+    setTodos(todos.filter((tarea) => tarea.id != idTarea));
+  };
+
+  const actualizarTarea = (idTarea, valorNuevo) => {
+    setTodos(
+      todos.map((tarea) =>
+        tarea.id == idTarea ? { id: tarea.id, valor: valorNuevo } : tarea
+      )
+    );
+    setTareaEditar(null);
+  };
+
+  const completarTarea = (idTarea) => {
+    setTodos(
+      todos.map((tarea) =>
+        tarea.id == idTarea
+          ? { ...tarea, completado: !tarea.completado }
+          : tarea
+      )
+    );
+  };
+
+  //DEBUG:
+  window.todo = {
+    agregarTarea,
+    actualizarTarea,
+    eliminarTarea,
+    completarTarea,
+  };
+
+  return tareaEditar ? (
+    <Main>
+      <FormularioTarea actualizarTarea={actualizarTarea} tipo="editar" />
+    </Main>
+  ) : (
+    <Main>
+      <FormularioTarea agregarTarea={agregarTarea} tipoForm="agregar" />
+      <br />
+      <Tareas
+        todos={todos}
+        eliminarTarea={eliminarTarea}
+        setTareaEditar={setTareaEditar}
+      />
+    </Main>
   );
 }
-
-export default App;
