@@ -26,6 +26,7 @@ export default function App() {
   };
 
   const actualizarTarea = (idTarea, valorNuevo) => {
+    console.log("App.js/actualizarTarea() Me llega ", idTarea, valorNuevo);
     setTodos(
       todos.map((tarea) =>
         tarea.id == idTarea ? { id: tarea.id, valor: valorNuevo } : tarea
@@ -35,6 +36,7 @@ export default function App() {
   };
 
   const completarTarea = (idTarea) => {
+    console.log("App.js/completarTarea: recibe ", idTarea);
     setTodos(
       todos.map((tarea) =>
         tarea.id == idTarea
@@ -54,7 +56,11 @@ export default function App() {
 
   return tareaEditar ? (
     <Main>
-      <FormularioTarea actualizarTarea={actualizarTarea} tipo="editar" />
+      <FormularioTarea
+        actualizarTarea={actualizarTarea}
+        tipoForm="editar"
+        idTareaEditar={tareaEditar.id}
+      />
     </Main>
   ) : (
     <Main>
@@ -64,6 +70,7 @@ export default function App() {
         todos={todos}
         eliminarTarea={eliminarTarea}
         setTareaEditar={setTareaEditar}
+        completarTarea={completarTarea}
       />
     </Main>
   );

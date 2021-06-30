@@ -2,12 +2,12 @@ import styled from "styled-components"
 
 export const ContenedorTarea = styled.div`
   display: flex;
-  width: 70%;
+  width: 100%;
   background-color: #666;
   box-sizing: border-box;
   border: 2px solid black;
   padding: 10px;
-  margin: 0px auto;
+  margin-left: 10px;
   justify-content: space-between;
   align-items: center;
 `;

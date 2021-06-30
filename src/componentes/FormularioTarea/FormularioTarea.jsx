@@ -4,7 +4,7 @@ import { uuid } from 'uuidv4';
 import { Formulario } from "./FormularioTareaEstilos"
 import { Boton } from "../Tareas/TareaEstilo"
 
-export default function FormularioTarea({agregarTarea, actualizarTarea, tipoForm}) {
+export default function FormularioTarea({agregarTarea, actualizarTarea, tipoForm, idTareaEditar}) {
 
   const [tarea, setTarea] = useState("")
 
@@ -16,7 +16,7 @@ export default function FormularioTarea({agregarTarea, actualizarTarea, tipoForm
         valor: tarea,
       })
     if (tipoForm == "editar")
-      actualizarTarea(tarea.id, tarea)
+      actualizarTarea(idTareaEditar, tarea)
 
     setTarea("");
   }
